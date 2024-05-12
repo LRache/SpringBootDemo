@@ -7,7 +7,7 @@ public class TripPlan {
     public int id;
     public String des;
     public String city;
-    public String datetime;
+    public String date;
     public int status;
     public String note;
 }
