@@ -42,6 +42,7 @@ public class TripPlanController {
         }
     }
 
+    @CrossOrigin(origins = "*.github.io/*")
     @PostMapping("/tripplan")
     public ResponseEntity<String> addTripPlan(@RequestBody TripPlan plan) {
         if (Globals.sqlConnection == null) {
