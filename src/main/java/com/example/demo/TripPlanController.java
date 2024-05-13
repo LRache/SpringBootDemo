@@ -43,7 +43,12 @@ public class TripPlanController {
     }
 
     @PostMapping("/tripplan")
-    public ResponseEntity<String> addTripPlan(@RequestBody TripPlan plan) {
+    public ResponseEntity<String> addTripPlan(@RequestParam("id") int id,
+                                              @RequestParam("des") String des,
+                                              @RequestParam("city") String city,
+                                              @RequestParam("date") String date,
+                                              @RequestParam("status") int status,
+                                              @RequestParam("note") String note) {
         if (Globals.sqlConnection == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("server error");
         }
@@ -51,12 +56,12 @@ public class TripPlanController {
             PreparedStatement stmt = Globals.sqlConnection.prepareStatement(
                     "insert into tripplan(id, des, city, datetime, status, note) values(?, ?, ?, ?, ?, ?)"
             );
-            stmt.setInt(1, plan.id);
-            stmt.setString(2, plan.des);
-            stmt.setString(3, plan.city);
-            stmt.setString(4, plan.date);
-            stmt.setInt(5, plan.status);
-            stmt.setString(6, plan.note);
+            stmt.setInt(1, id);
+            stmt.setString(2, des);
+            stmt.setString(3, city);
+            stmt.setString(4, date);
+            stmt.setInt(5, status);
+            stmt.setString(6, note);
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
