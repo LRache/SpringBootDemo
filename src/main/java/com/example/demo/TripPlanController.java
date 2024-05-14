@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -41,7 +42,7 @@ public class TripPlanController {
         }
     }
 
-    @CrossOrigin(origins = "*.github.io/*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/tripplan")
     public ResponseEntity<String> addTripPlan(@RequestParam("id") int id,
                                               @RequestParam("des") String des,
@@ -65,6 +66,7 @@ public class TripPlanController {
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
+            log.error(e.toString());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("server error");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body("");
